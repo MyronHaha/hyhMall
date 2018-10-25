@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+   android:layout_width="match_parent"
+    android:layout_height="88dp">
+   <ImageView
+       android:id="@+id/iv_pic"
+       android:layout_marginLeft="24dp"
+       android:layout_marginRight="19dp"
+       android:layout_marginTop="11dp"
+       android:layout_marginBottom="11dp"
+       android:layout_width="64dp"
+       android:layout_height="64dp"
+       android:src="@mipmap/icon_ywzc"/>
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_marginTop="19dp"
+        android:layout_toRightOf="@id/iv_pic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="合壹汇2017合伙人大会"
+        android:textSize="14sp"
+        android:textColor="#3d3d3d"/>
+   <LinearLayout
+       android:layout_width="wrap_content"
+       android:layout_height="18dp"
+       android:layout_below="@+id/tv_title"
+       android:layout_toRightOf="@+id/iv_pic"
+       android:layout_marginTop="23dp"
+       android:layout_marginBottom="15dp"
+       android:orientation="horizontal"
+       android:gravity="center"
+       android:layout_gravity="center">
+       <ImageView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:src="@mipmap/icon_sj"
+           />
+       <TextView
+           android:paddingLeft="4dp"
+           android:id="@+id/tv_date"
+           android:layout_width="wrap_content"
+           android:layout_height="match_parent"
+           android:textColor="#939393"
+           android:text="2017-09-03" />
+
+   </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="18dp"
+       android:layout_alignParentBottom="true"
+   android:layout_alignParentRight="true"
+        android:layout_marginRight="24dp"
+        android:layout_marginBottom="15dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_gravity="center">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/icon_ck"
+            />
+        <TextView
+            android:paddingLeft="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textColor="#939393"
+            android:text="2014" />
+
+    </LinearLayout>
+
+</RelativeLayout>

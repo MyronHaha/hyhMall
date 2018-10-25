@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#eeeeee"
+>
+    <include layout="@layout/app_header"/>
+    <LinearLayout
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="123dp"
+        android:background="@drawable/round_shape4"
+        android:orientation="horizontal"
+        android:gravity="top">
+        <EditText
+            android:id="@+id/et_jy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="请输入意见内容"
+            android:textSize="14sp"
+            android:background="@null"/>
+    </LinearLayout>
+    <Button
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:id="@+id/bt_submit"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:textSize="16sp"
+        android:background="@drawable/round_shape"
+        android:text="提交"
+        android:textColor="@drawable/selector_btn_tx" />
+    <TextView
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:id="@+id/tv_call"
+        android:textSize="13sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="服务热线 020-39155180"
+        android:textColor="#c6c5c5"
+        android:layout_marginTop="10dp"
+        android:gravity="right"
+        android:layout_gravity="right"
+        />
+</LinearLayout>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<android.support.v4.widget.NestedScrollView
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_marginLeft="16dp"
+            style="@style/c01_15"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="分类"/>
+        <android.support.v7.widget.RecyclerView
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:overScrollMode="never"
+            android:focusableInTouchMode="false"
+            android:focusable="false"
+            android:id="@+id/filterView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>
+    <LinearLayout
+        android:gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="49dp">
+        <Button
+            android:id="@+id/bt_reset"
+            android:textStyle="bold"
+            style="@style/white_16"
+            android:gravity="center"
+            android:text="重 置"
+            android:background="#12e1fb"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent" />
+        <Button
+            android:id="@+id/bt_sure"
+            android:textStyle="bold"
+            style="@style/white_16"
+            android:gravity="center"
+            android:text="确 定"
+            android:background="#02cdf8"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_marginTop="20dp"
+    android:layout_marginLeft="12dp"
+android:layout_gravity="left|center_vertical"
+    android:id="@+id/tv_keytext"
+    android:text="轮椅对方答"
+     style="@style/c44_13"
+    android:textColor="@drawable/selector_tag_tx2"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+</TextView>

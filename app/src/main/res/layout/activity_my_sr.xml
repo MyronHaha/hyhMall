@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+   <include layout="@layout/app_header"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:id="@+id/header" />
+<com.liaoinstan.springview.widget.SpringView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/springView"
+    android:layout_below="@id/header"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:id="@+id/ll_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#eeeeee"
+            android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_marginTop="7dp"
+            android:id="@+id/rl"
+            android:background="#ffffff"
+            android:paddingLeft="13dp"
+            android:paddingRight="13dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <ImageView
+                android:id="@+id/iv"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/main_icon_sj"/>
+           <!--开始时间-->
+            <TextView
+                android:paddingLeft="3dp"
+                android:id="@+id/tv_start"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2017-10-01"/>
+            <TextView
+                android:paddingLeft="3dp"
+                android:id="@+id/tv_devider"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/tv_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="至"/>
+            <!--结束时间-->
+            <TextView
+                android:paddingLeft="3dp"
+                android:id="@+id/tv_end"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/tv_devider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2017-10-01"/>
+            <ImageView
+                android:id="@+id/iv2"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:src="@mipmap/main_jt_xia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+            />
+       <!--     <Spinner
+                android:background="@mipmap/main_jt_xia"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:id="@+id/field_item_spinner_content"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+           />-->
+            <TextView
+                android:id="@+id/tv_state"
+                android:paddingRight="3dp"
+                android:layout_toLeftOf="@id/iv2"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="本月"/>
+        </RelativeLayout>
+            <ListView
+                android:divider="@drawable/devider"
+                android:id="@+id/lv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </ScrollView>
+</com.liaoinstan.springview.widget.SpringView>
+    <include layout="@layout/layout_nodata"/>
+</RelativeLayout>
+
+
+

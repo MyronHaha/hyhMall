@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#ffffff"
+    android:orientation="vertical"
+    android:paddingBottom="13dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="13dp"
+    android:translationZ="3dp"
+    android:id="@+id/ll_msg">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:text="这是消息标题"
+        android:textColor="#3d3d3d"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginBottom="13dp"
+        android:layout_marginTop="7dp"
+        android:text="2017-04-30"
+        android:textColor="#939393"
+        android:textSize="9sp" />
+
+    <LinearLayout
+        android:animateLayoutChanges="true"
+        android:background="#eeeeee"
+        android:id="@+id/msg_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:paddingLeft="3dp"
+        android:paddingRight="3dp"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#eeeeee" />
+
+        <TextView
+            android:id="@+id/tv_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="13dp"
+            android:layout_marginTop="13dp"
+            android:lineSpacingExtra="3dp"
+            android:text="更多消息详细内容在这里fsdfsfsdfasdfasdfasdfasdfasdfdfsdfsfsdfasdfasdfaadfsadf啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊"
+            android:textColor="#3d3d3d"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+
+</LinearLayout>

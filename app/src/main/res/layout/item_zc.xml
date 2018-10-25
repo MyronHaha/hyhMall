@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--top bottom 13dp left right 10dp textsize 14sp -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+   android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center_vertical"
+    android:background="#ffffff">
+    <LinearLayout
+        android:paddingTop="13dp"
+        android:paddingBottom="13dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/tv_gs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#3d3d3d"
+            android:textSize="14sp"
+            android:text="贝尔医疗上海国际有限公司" />
+        <TextView
+            android:id="@+id/tv_state"
+            android:gravity="right"
+            android:layout_gravity="right|center_vertical"
+            android:textSize="10sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#fe3737"
+            android:text="待付款" />
+    </LinearLayout>
+    <TextView
+        android:background="#e7e7e7"
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="13dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_gravity="center_vertical">
+        <LinearLayout
+            android:layout_gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#3d3d3d"
+            android:textSize="14sp"
+            android:text="单号 " />
+            <TextView
+                android:id="@+id/tv_dh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#3d3d3d"
+                android:textSize="14sp"
+                android:text="23478324029384" />
+        <TextView
+            android:id="@+id/tv_date"
+            android:gravity="right"
+             android:layout_gravity="right|center_vertical"
+            android:textSize="14sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#3d3d3d"
+            android:text="2014-04-30" />
+        </LinearLayout>
+    </LinearLayout>
+<LinearLayout
+    android:gravity="right|center_vertical"
+    android:layout_gravity="right"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingRight="10dp"
+    android:paddingBottom="13dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#606060"
+        android:textSize="14sp"
+        android:text="金额： " />
+    <TextView
+        android:layout_gravity="center_vertical"
+        android:id="@+id/tv_price"
+        android:textSize="14sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#fe3737"
+        android:text="待付款" />
+</LinearLayout>
+
+
+
+
+</LinearLayout>

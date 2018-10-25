@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_marginTop="10dp"
+    android:layout_marginLeft="18dp"
+    android:id="@+id/tv_tag"
+    style="@style/c01_13"
+    android:textColor="@drawable/selector_tab_tx_gg"
+    android:layout_width="94dp"
+    android:layout_height="24dp"
+    android:background="@drawable/bg_gg_unsel"
+    android:gravity="center"
+    android:text="医械类" />

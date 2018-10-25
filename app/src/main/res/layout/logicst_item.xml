@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--线条部分-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="88dp"
+    android:orientation="horizontal"
+    android:background="#ffffff">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingLeft="10dp">
+
+        <View
+            android:id="@+id/line_top"
+            android:layout_width="1dp"
+            android:layout_height="20dp"
+            android:background="#dddddd" />
+        <View
+            android:id="@+id/line_gone"
+            android:layout_width="1dp"
+            android:layout_height="20dp"
+            android:background="#ffffff"
+            android:visibility="gone"/>
+        <ImageView
+            android:id="@+id/point"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/point_gr" />
+        <!--<ImageView-->
+        <!--android:visibility="gone"-->
+        <!--android:id="@+id/circle_se"-->
+        <!--android:layout_width="15dp"-->
+        <!--android:layout_height="15dp"-->
+        <!--android:background="@drawable/time_cycle" />-->
+        <View
+            android:layout_width="1dp"
+            android:layout_height="60dp"
+            android:background="#dddddd" />
+    </LinearLayout>
+    <!--文字部分-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="8dp"
+        android:paddingRight="10dp"
+        android:paddingTop="15dp">
+
+        <TextView
+            android:textSize="14sp"
+            android:id="@+id/tv_action"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="订单已付款，正在配货..."
+            android:textColor="#3d3d3d" />
+
+        <TextView
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="20dp"
+            android:id="@+id/tv_date"
+            android:textSize="12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_action"
+            android:text="2016-05-03 00:22:36"
+            android:textColor="#939393" />
+    </LinearLayout>
+
+</LinearLayout>
