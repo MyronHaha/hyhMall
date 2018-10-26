@@ -27,6 +27,8 @@ android {
                             'src/main/res/layout/mallSearch',
                             'src/main/res/layout/mallList',
                             'src/main/res/layout/mallDetail',
+                            'src/main/res/layout/mallResult',
+                            'src/main/res/layout/mallCart',
                             'src/main/res/layout',
                             'src/main/res'
                     ]

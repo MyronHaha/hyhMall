@@ -49,6 +49,7 @@ import com.example.myron.heyihui.com.example.myron.heyihui.fragment.HomeFragment
 import com.example.myron.heyihui.com.example.myron.heyihui.fragment.MyFragment;
 import com.example.myron.heyihui.com.example.myron.heyihui.fragment.NeedFragment;
 import com.example.myron.heyihui.com.example.myron.heyihui.fragment.ProductFragment2;
+import com.example.myron.heyihui.com.example.myron.heyihui.fragment.mall_v1.MallCartFragment;
 import com.example.myron.heyihui.com.example.myron.heyihui.fragment.mall_v1.MallHomeFragment;
 import com.example.myron.heyihui.com.example.myron.heyihui.utils.StatusBarUtils;
 import com.example.myron.heyihui.com.example.myron.heyihui.view.CommonProgressDialog;
@@ -85,7 +86,8 @@ public class Main2Activity extends BaseActivity implements RadioGroup.OnCheckedC
     //    FragmentTransaction transaction;  一个transaction只能commit一次，多次commit要重新建对象；
     private MallHomeFragment homeFragment;
     private NeedFragment needFragment;
-    private ProductFragment2 productFragment;
+//    private ProductFragment2 productFragment;
+private MallCartFragment cartFragment;
     private MyFragment myFragment;
 
     private RadioGroup rbGroup;
@@ -223,7 +225,7 @@ public class Main2Activity extends BaseActivity implements RadioGroup.OnCheckedC
 
 //        homeFragment = new HomeFragment();
         needFragment = new NeedFragment();
-        productFragment = new ProductFragment2();
+        cartFragment = new MallCartFragment();
         myFragment = new MyFragment();
         currentFragment = homeFragment;
     }
@@ -266,7 +268,7 @@ public class Main2Activity extends BaseActivity implements RadioGroup.OnCheckedC
                 break;
             case R.id.tab_product:
                 handler.sendEmptyMessage(2);
-                switchFragment(productFragment);
+                switchFragment(cartFragment);
                 break;
             case R.id.tab_my:
                 handler.sendEmptyMessage(3);

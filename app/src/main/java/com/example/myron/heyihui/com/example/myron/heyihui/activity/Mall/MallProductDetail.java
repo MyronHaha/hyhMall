@@ -45,6 +45,7 @@ import com.example.myron.heyihui.R;
 import com.example.myron.heyihui.com.example.myron.heyihui.SQL.RecordSQLiteOpenHelper;
 import com.example.myron.heyihui.com.example.myron.heyihui.activity.BaseActivity;
 import com.example.myron.heyihui.com.example.myron.heyihui.utils.SoftKeyboardStateHelper;
+import com.example.myron.heyihui.com.example.myron.heyihui.utils.common;
 import com.nineoldandroids.animation.ValueAnimator;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
@@ -197,15 +198,15 @@ public class MallProductDetail extends BaseActivity {
         });
         RecyclerView ggView = (RecyclerView) view.findViewById(R.id.rv_gg);
         List list = new ArrayList();
-        for(int i = 0;i<100;i++){
-            list.add("tag tag"+i);
+        for (int i = 0; i < 100; i++) {
+            list.add("tag tag" + i);
         }
-        ggView.setLayoutManager(new GridLayoutManager(dialog.getContext(),3,GridLayoutManager.VERTICAL,false));
-        ggView.setAdapter(new BaseQuickAdapter<String,BaseViewHolder>(R.layout.item_gg,list) {
+        ggView.setLayoutManager(new GridLayoutManager(dialog.getContext(), 3, GridLayoutManager.VERTICAL, false));
+        ggView.setAdapter(new BaseQuickAdapter<String, BaseViewHolder>(R.layout.item_gg, list) {
             @Override
             protected void convert(BaseViewHolder baseViewHolder, String o) {
-                baseViewHolder.setText(R.id.tv_tag,  o);
-                if(baseViewHolder.getPosition() == 0 && baseViewHolder.getPosition()%3 ==1 ){
+                baseViewHolder.setText(R.id.tv_tag, o);
+                if (baseViewHolder.getPosition() == 0 && baseViewHolder.getPosition() % 3 == 1) {
                     GridLayoutManager.LayoutParams params = (GridLayoutManager.LayoutParams) baseViewHolder.itemView.getLayoutParams();
                     params.setMargins(12, params.topMargin, params.rightMargin, params.bottomMargin);
                     baseViewHolder.itemView.setLayoutParams(params);
@@ -237,6 +238,8 @@ public class MallProductDetail extends BaseActivity {
         final EditText etCount = (EditText) view.findViewById(R.id.chang_count);
         Button btn_add = (Button) view.findViewById(R.id.bt_add);
         Button btn_minus = (Button) view.findViewById(R.id.bt_minus);
+        LinearLayout btn_add_cart = (LinearLayout) view.findViewById(R.id.btn_add_cart);
+        LinearLayout btn_submit = (LinearLayout) view.findViewById(R.id.btn_submit);
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -256,7 +259,7 @@ public class MallProductDetail extends BaseActivity {
             public void onClick(View v) {
                 int count = getEtCount(etCount);
                 count--;
-                if(count<0){
+                if (count < 0) {
                     count = 0;
                 }
                 final int finalCount = count;
@@ -266,6 +269,18 @@ public class MallProductDetail extends BaseActivity {
                         etCount.setText(String.valueOf(finalCount));
                     }
                 });
+            }
+        });
+        btn_add_cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addCart();
+            }
+        });
+        btn_submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                submitOrder();
             }
         });
 //        ConstraintLayout et_parent = (ConstraintLayout) view.findViewById(R.id.et_count);
@@ -303,52 +318,24 @@ public class MallProductDetail extends BaseActivity {
     private void initChooseDialog() {
     }
 
-    private void listenKeyboardLayout(final View root, final View scrollToView) {
-        SoftKeyboardStateHelper keyboardStateHelper = new SoftKeyboardStateHelper(root);
-        keyboardStateHelper.addSoftKeyboardStateListener(new SoftKeyboardStateHelper.SoftKeyboardStateListener() {
 
-            @Override
-            public void onSoftKeyboardOpened(int keyboardHeightInPx) {
-                Rect rect = new Rect();
-                // 获取root在窗体的可视区域
-                root.getWindowVisibleDisplayFrame(rect);
-                int[] location = new int[2];
-                // 获取scrollToView在窗体的坐标
-                scrollToView.getLocationInWindow(location);
-                // 计算root滚动高度，使scrollToView在可见区域的底部
-                int srollHeight = (location[1] + scrollToView.getHeight()) - rect.bottom;
-                root.scrollTo(0, srollHeight+80);
-            }
-
-            @Override
-            public void onSoftKeyboardClosed() {
-                // 键盘隐藏
-                root.scrollTo(0, 0);
-
-            }
-        });
-    }
-
-    private void scrollToPos(int start, int end, final View view) {
-        ValueAnimator animator = ValueAnimator.ofInt(start, end);
-        animator.setDuration(250);
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                view.scrollTo(0, (Integer) valueAnimator.getAnimatedValue());
-            }
-        });
-        animator.start();
-    }
-
-    private int getEtCount(EditText et){
-        int result ;
-        try{
-           result = Integer.parseInt(et.getText().toString());
-        }catch (Exception ex){
+    private int getEtCount(EditText et) {
+        int result;
+        try {
+            result = Integer.parseInt(et.getText().toString());
+        } catch (Exception ex) {
             return 0;
         }
-     return result;
+        return result;
     }
 
+    @OnClick(R.id.btn_submit)
+    public void submitOrder() {
+        common.launchActivity(this, ConfirmOrders.class);
+    }
+
+    @OnClick(R.id.btn_add_cart)
+    public void addCart() {
+
+    }
 }

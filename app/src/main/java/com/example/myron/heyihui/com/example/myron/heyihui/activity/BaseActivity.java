@@ -2,6 +2,7 @@ package com.example.myron.heyihui.com.example.myron.heyihui.activity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -16,7 +17,9 @@ import com.example.myron.heyihui.R;
 import com.example.myron.heyihui.com.example.myron.heyihui.BaseApp;
 import com.example.myron.heyihui.com.example.myron.heyihui.utils.AndroidWorkaround;
 import com.example.myron.heyihui.com.example.myron.heyihui.utils.NavigationBarUtil;
+import com.example.myron.heyihui.com.example.myron.heyihui.utils.SoftKeyboardStateHelper;
 import com.example.myron.heyihui.com.example.myron.heyihui.utils.StatusBarUtils;
+import com.nineoldandroids.animation.ValueAnimator;
 
 import butterknife.ButterKnife;
 
@@ -121,5 +124,43 @@ public class BaseActivity extends AppCompatActivity {
     // 是否是小米手机
     public static boolean isXiaomi() {
         return "Xiaomi".equals(Build.MANUFACTURER);
+    }
+    //edittext
+    public  void listenKeyboardLayout(final View root, final View scrollToView) {
+        SoftKeyboardStateHelper keyboardStateHelper = new SoftKeyboardStateHelper(root);
+        keyboardStateHelper.addSoftKeyboardStateListener(new SoftKeyboardStateHelper.SoftKeyboardStateListener() {
+
+            @Override
+            public void onSoftKeyboardOpened(int keyboardHeightInPx) {
+                Rect rect = new Rect();
+                // 获取root在窗体的可视区域
+                root.getWindowVisibleDisplayFrame(rect);
+                int[] location = new int[2];
+                // 获取scrollToView在窗体的坐标
+                scrollToView.getLocationInWindow(location);
+                // 计算root滚动高度，使scrollToView在可见区域的底部
+                int srollHeight = (location[1] + scrollToView.getHeight()) - rect.bottom;
+                root.scrollTo(0, srollHeight+80);
+            }
+
+            @Override
+            public void onSoftKeyboardClosed() {
+                // 键盘隐藏
+                root.scrollTo(0, 0);
+
+            }
+        });
+    }
+
+    public  void scrollToPos(int start, int end, final View view) {
+        ValueAnimator animator = ValueAnimator.ofInt(start, end);
+        animator.setDuration(250);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                view.scrollTo(0, (Integer) valueAnimator.getAnimatedValue());
+            }
+        });
+        animator.start();
     }
 }

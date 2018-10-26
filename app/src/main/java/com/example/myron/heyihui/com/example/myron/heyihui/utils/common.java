@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -192,8 +193,8 @@ public class common {
         iv.setVisibility(View.GONE);
     }
     public static void hideRightIv(Context context) {
-        iv = (ImageView) ((Activity) context).findViewById(R.id.iv_right);
-        iv.setVisibility(View.GONE);
+        FrameLayout right = (FrameLayout) ((Activity) context).findViewById(R.id.iv_right);
+        right.setVisibility(View.GONE);
     }
     //url 拼凑；
     public static String getUrl(String url, HashMap<String, String> params) {

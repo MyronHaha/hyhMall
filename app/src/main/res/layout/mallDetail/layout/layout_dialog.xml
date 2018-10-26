@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:id="@+id/rootView"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rootView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -84,6 +83,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
+            android:paddingBottom="98dp"
             android:paddingTop="12dp">
 
             <TextView
@@ -105,11 +105,11 @@
                 android:background="#e9eded" />
 
             <android.support.constraint.ConstraintLayout
-                android:focusableInTouchMode="false"
-                android:focusable="false"
                 android:id="@+id/et_count"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
                 android:padding="13dp">
 
                 <TextView
@@ -138,7 +138,6 @@
                     style="?android:attr/textViewStyle"
                     android:layout_width="49dp"
                     android:layout_height="36dp"
-                    android:layout_marginLeft="4dp"
                     android:layout_marginRight="4dp"
                     android:background="@drawable/bg_gg_unsel"
                     android:gravity="center"
@@ -152,21 +151,65 @@
                     app:layout_constraintBottom_toBottomOf="@+id/title_count"
                     app:layout_constraintRight_toLeftOf="@+id/bt_add"
                     app:layout_constraintTop_toTopOf="@+id/title_count" />
+
                 <Button
                     android:id="@+id/bt_minus"
                     style="@style/black_15"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
+                    android:layout_marginRight="4dp"
                     android:background="@drawable/selector_bt_bg"
                     android:gravity="center"
                     android:text="-"
-                    app:layout_constraintRight_toLeftOf="@+id/chang_count"
                     app:layout_constraintBottom_toBottomOf="@+id/title_count"
+                    app:layout_constraintRight_toLeftOf="@+id/chang_count"
                     app:layout_constraintTop_toTopOf="@+id/title_count" />
 
             </android.support.constraint.ConstraintLayout>
+
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:gravity="bottom"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/btn_add_cart"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="0.5dp"
+            android:layout_weight="110">
+
+            <TextView
+                style="@style/white_15"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#1ae1fb"
+                android:gravity="center"
+                android:text="加入购物车"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btn_submit"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="0.5dp"
+            android:layout_weight="110">
+
+            <TextView
+                style="@style/white_15"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#02cdf8"
+                android:gravity="center"
+                android:text="立即下单"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
 
 
 </LinearLayout>

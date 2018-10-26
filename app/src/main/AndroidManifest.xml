@@ -50,6 +50,8 @@
             android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".com.example.myron.heyihui.activity.Mall.MallProductDetail"
             android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".com.example.myron.heyihui.activity.Mall.ConfirmOrders"
+            android:windowSoftInputMode="adjustPan"/>
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.example.myron.heyihui.fileprovider"
