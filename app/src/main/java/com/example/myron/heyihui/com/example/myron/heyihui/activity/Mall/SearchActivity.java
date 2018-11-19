@@ -1,6 +1,7 @@
 package com.example.myron.heyihui.com.example.myron.heyihui.activity.Mall;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
@@ -30,16 +31,24 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.myron.heyihui.R;
 import com.example.myron.heyihui.com.example.myron.heyihui.BaseApp;
+import com.example.myron.heyihui.com.example.myron.heyihui.Http.HttpUtils;
 import com.example.myron.heyihui.com.example.myron.heyihui.SQL.RecordSQLiteOpenHelper;
 import com.example.myron.heyihui.com.example.myron.heyihui.activity.BaseActivity;
 import com.example.myron.heyihui.com.example.myron.heyihui.utils.AndroidWorkaround;
+import com.example.myron.heyihui.com.example.myron.heyihui.utils.MyToast;
 import com.example.myron.heyihui.com.example.myron.heyihui.utils.StatusBarUtils;
 import com.example.myron.heyihui.com.example.myron.heyihui.utils.common;
+import com.mph.okdroid.response.JsonResHandler;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -64,7 +73,8 @@ public class SearchActivity extends BaseActivity {
     /*数据库变量*/
     private RecordSQLiteOpenHelper helper;
     private SQLiteDatabase db;
-
+    private List<String> hotDatas = new ArrayList<>();
+    BaseQuickAdapter<String, BaseViewHolder> HotAdapter;
 
     public SearchActivity(){
         super(R.layout.activity_search);
@@ -79,6 +89,37 @@ public class SearchActivity extends BaseActivity {
         initMoreView();
     }
 
+    @Override
+    public void initData() {
+        super.initData();
+        initHotData();
+    }
+
+    private void initHotData() {
+        HttpUtils.getHotKeys(new JsonResHandler() {
+            @Override
+            public void onSuccess(int statusCode, JSONObject response) {
+                super.onSuccess(statusCode, response);
+                if(statusCode == 200){
+                    try {
+                        JSONObject data = new JSONObject(response.getString("data"));
+                        String res = data.getString("HOTS");
+                        hotDatas.clear();
+                        hotDatas.addAll(Arrays.asList(res.split("\\|")));
+                        HotAdapter.notifyDataSetChanged();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailed(int i, String s) {
+
+            }
+        });
+    }
+
     private void initSearchView() {
         et_search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -90,9 +131,10 @@ public class SearchActivity extends BaseActivity {
                                     .getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                     String inputContent = et_search.getText().toString();
                     if (inputContent.equals("")) {
-                        Toast.makeText(SearchActivity.this, "请输入关键字！", 1000).show();
+                        MyToast.makeText(SearchActivity.this, "请输入关键字！", 1000).show();
                     } else {
-                        Toast.makeText(SearchActivity.this, inputContent, 1000).show();
+                          searchToList(inputContent);
+//                        MyToast.makeText(SearchActivity.this, inputContent, 1000).show();
                         if (!hasData(inputContent)) {
                             insertData(inputContent);
                             refreshFlowLayout();
@@ -125,27 +167,21 @@ public class SearchActivity extends BaseActivity {
     }
 
     private void initMoreView() {
-        List<String> data = new ArrayList<>();
-        data.add("一张庄");
-        data.add("管理技术看");
-        data.add("nijkdjfkfd");
-        data.add("分几536456");
-        data.add("fdsfsd");
-        data.add("一张庄");
-        data.add("管理技术看");
-        data.add("一张庄");
-        data.add("管理技术看");
-        data.add("一张庄");
-        data.add("管理技术看");
-        BaseQuickAdapter<String, BaseViewHolder> adapter = new BaseQuickAdapter<String, BaseViewHolder>(R.layout.layout_item_keytext, data) {
+         HotAdapter = new BaseQuickAdapter<String, BaseViewHolder>(R.layout.layout_item_keytext, hotDatas) {
             @Override
             protected void convert(BaseViewHolder baseViewHolder, String s) {
                 baseViewHolder.setText(R.id.tv_keytext, s);
             }
         };
+         HotAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+             @Override
+             public void onItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
+                    searchToList(hotDatas.get(i));
+             }
+         });
         GridLayoutManager manager = new GridLayoutManager(SearchActivity.this, 2, GridLayoutManager.VERTICAL, false);
         moreView.setLayoutManager(manager);
-        moreView.setAdapter(adapter);
+        moreView.setAdapter(HotAdapter);
     }
 //刷新历史搜
     public void refreshFlowLayout() {
@@ -170,7 +206,7 @@ public class SearchActivity extends BaseActivity {
         mFlowLayout.setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
             @Override
             public boolean onTagClick(View view, int i, FlowLayout flowLayout) {
-
+              searchToList(hisDatas.get(i));
                 return false;
             }
         });
@@ -241,5 +277,13 @@ public class SearchActivity extends BaseActivity {
         db = helper.getWritableDatabase();
         db.execSQL("delete from records");
         db.close();
+    }
+
+
+    public void searchToList(String key){
+        Intent intent = new Intent(SearchActivity.this,MallListActivity.class);
+        intent.putExtra("key",key);
+        common.launchActivityWithIntent(SearchActivity.this,intent);
+        SearchActivity.this.finish();
     }
 }

@@ -1,42 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
+<com.example.myron.heyihui.com.example.myron.heyihui.view.ShadowLayout
+    android:layout_width="116dp"
+    android:layout_height="wrap_content"
+    app:sl_shadowRadius="3dp"
+    app:sl_shadowColor="#20ececec"
+    app:sl_dx="0dp"
+    app:sl_dy="2dp"
+    app:sl_cornerRadius="10dp"
+    android:layout_marginLeft="6dp"
+    android:layout_marginTop="2dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginLeft="12dp"
-    android:layout_marginTop="14dp"
     android:paddingBottom="10dp"
-    android:layout_width="wrap_content"
+    android:layout_width="113dp"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:gravity="center"
     android:orientation="vertical"
-    android:background="@drawable/shadow_rect">
+
+    android:background="@drawable/round_shape_10_white">
  <FrameLayout
-     android:layout_marginLeft="2dp"
-     android:layout_marginRight="2dp"
      android:layout_width="match_parent"
-     android:layout_height="82dp">
-     <ImageView
-         android:background="@drawable/bg_topradius"
-         android:src="@mipmap/main_icon_yiwc"
+     android:layout_height="85dp">
+     <com.example.myron.heyihui.com.example.myron.heyihui.view.RoundCornerImageView
          android:id="@+id/iv"
          android:layout_width="match_parent"
          android:layout_height="match_parent"
          android:scaleType="centerCrop"/>
  </FrameLayout>
     <TextView
+        android:id="@+id/name"
 android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
         style="@style/black_13"
-        android:maxLines="2"
+     android:singleLine="true"
         android:ellipsize="end"
-        android:text="欣万福皮肤dfsdfs和粘膜的可吸收单股缝"
         android:layout_width="107dp"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"/>
   <TextView
+      android:id="@+id/price"
       android:layout_marginTop="6dp"
-      android:text="￥24-85.5"
-      style="@style/red_15"
+      style="@style/red_11"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content" />
 </LinearLayout>
+</com.example.myron.heyihui.com.example.myron.heyihui.view.ShadowLayout>

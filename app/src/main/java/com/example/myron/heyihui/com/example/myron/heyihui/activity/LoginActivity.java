@@ -30,6 +30,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -49,6 +50,7 @@ import com.example.myron.heyihui.R;
 import com.example.myron.heyihui.com.example.myron.heyihui.BaseApp;
 import com.example.myron.heyihui.com.example.myron.heyihui.Data.User;
 import com.example.myron.heyihui.com.example.myron.heyihui.Http.HttpCore;
+import com.example.myron.heyihui.com.example.myron.heyihui.Http.HttpUtils;
 import com.example.myron.heyihui.com.example.myron.heyihui.Http.URL;
 import com.example.myron.heyihui.com.example.myron.heyihui.utils.MyToast;
 import com.example.myron.heyihui.com.example.myron.heyihui.utils.common;
@@ -87,6 +89,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE); //设置无标题
         super.onCreate(savedInstanceState);
+        getWindow().setSoftInputMode
+                (WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN|
+                        WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         setContentView(R.layout.activity_login);
         scontext = this.getApplication();
         iv_back = (ImageView) findViewById(R.id.iv_back);
@@ -192,30 +197,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                     message = user.getMessage();
                     status = user.getStatus();
-//                    {
-//                        "data": null,
-//                            "message": "用户名或密码错误！",
-//                            "status": 0,
-//                            "total": 0
-//                    }
                     Log.e("status",status+"");
-//                    HttpCore.userId = user.getInt("id");
-//                    common.logResult(user.toString());
-//                    int status = user.getInt("status");
-//                    String name = user.getString("name");
-//                    String k = user.getString("k");
-//                    message = user.getString("message");
-//                    common.logResult(status + "");
                     if (status == 1) {
                         if(user!=null){
-
                             HttpCore.userId = user.getData().getId();
                             data = user.getData();
                             name = data.getName();
                             k = data.getK();
                             User.userName = user.getData().getName();
+                            HttpUtils.setLogin(true);
                         }
-                        MyToast.makeText(scontext, "登录成功", Toast.LENGTH_SHORT).show();
+                        MyToast.makeText(scontext, "登录成功！", Toast.LENGTH_SHORT).show();
 
                         //保存用户数据；
                         HashMap userMap = new HashMap();
@@ -228,12 +220,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         common.launchActivity(LoginActivity.this, Main2Activity.class);
                         LoginActivity.this.finish();
                     } else {
-                        if (message.equals("验证码不对！")) {
-                            MyToast.makeText(scontext, "验证码有误，请稍后再试", Toast.LENGTH_SHORT).show();
-                        } else {
-                            MyToast.makeText(scontext, message+"请稍后再试", Toast.LENGTH_SHORT).show();
+//                        if (message.equals("验证码不对！")) {
+//                            MyToast.makeText(scontext, "验证码有误，请稍后再试", Toast.LENGTH_SHORT).show();
+//                        } else {
+                            MyToast.makeText(scontext, message+"请稍后再试", Toast.LENGTH_LONG).show();
 
-                        }
+//                        }
+                        HttpUtils.setLogin(false);
                     }
                 }
 

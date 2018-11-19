@@ -3,6 +3,7 @@ package com.example.myron.heyihui.com.example.myron.heyihui;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 
 import com.example.myron.heyihui.com.example.myron.heyihui.Http.HttpCore;
 import com.example.myron.heyihui.com.example.myron.heyihui.Http.URL;
@@ -25,6 +26,9 @@ public class BaseApp extends Application {
     private List<Activity> list = new ArrayList<Activity>();
     private static BaseApp ea;
     private static Context mcontext;
+    public BaseApp() {
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -54,5 +58,6 @@ public class BaseApp extends Application {
     public static Context getMyApplicationContext() {
         return mcontext;
     }
+
 
 }

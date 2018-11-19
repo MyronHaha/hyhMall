@@ -27,7 +27,7 @@ import okhttp3.OkHttpClient;
 public class HttpCore {
     private static OkHttpClient okHttpClient;
     public static boolean ISNOVCODE = false;//测试没有验证码；
-    private static OkDroid okDroid;
+    public static OkDroid okDroid;
     private static String token="";
     public static int userId = -100;
     //fir update info
@@ -46,7 +46,6 @@ public class HttpCore {
         okDroid.setDebug(false);
 
     }
-
     public static void post(String url, HashMap map, IResponseHandler handler) {
         Log.e("token",token);
         okDroid.post().url(url)
@@ -57,6 +56,7 @@ public class HttpCore {
     }
     //with params
     public static void get(String url, HashMap map, IResponseHandler handler) {
+
         String  newUrl;
         if(map!=null){
               newUrl = common.getUrl(url,map);
@@ -65,7 +65,7 @@ public class HttpCore {
         }
         Log.e("newURl",newUrl);
         okDroid.get().url(newUrl)
-                .tag(newUrl)
+                .tag(url)
                 .addHeader("token",token)
                 .enqueue(handler);
     }

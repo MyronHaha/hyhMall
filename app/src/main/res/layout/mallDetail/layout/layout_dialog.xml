@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:zhy="http://schemas.android.com/tools"
     android:id="@+id/rootView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -21,16 +22,18 @@
         <FrameLayout
             android:id="@+id/fl_iv"
             android:layout_width="117dp"
-            android:layout_height="88dp"
-            android:background="@color/colorPrimary">
+            android:layout_height="88dp">
 
             <ImageView
+                android:src="@mipmap/nopictures_bg"
+                android:id="@+id/iv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="centerCrop" />
+                android:scaleType="fitCenter" />
         </FrameLayout>
 
         <TextView
+            android:id="@id/tv_price"
             style="@style/red_15"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -93,12 +96,20 @@
                 android:layout_marginLeft="12dp"
                 android:text="规格" />
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_gg"
-                android:layout_width="match_parent"
+            <!--<android.support.v7.widget.RecyclerView-->
+                <!--android:id="@+id/rv_gg"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginBottom="12dp" />-->
+            <com.zhy.view.flowlayout.TagFlowLayout
+                zhy:tag_gravity="left"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="30dp"
+                android:focusable="false"
+                android:id="@+id/id_flowlayout"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp" />
-
+                android:background="#ffffff" />
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -123,7 +134,7 @@
 
                 <Button
                     android:id="@+id/bt_add"
-                    style="@style/black_15"
+                    style="@style/Base.Widget.AppCompat.Button.Borderless"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:background="@drawable/selector_bt_bg"
@@ -154,7 +165,7 @@
 
                 <Button
                     android:id="@+id/bt_minus"
-                    style="@style/black_15"
+                    style="@style/Base.Widget.AppCompat.Button.Borderless"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:layout_marginRight="4dp"

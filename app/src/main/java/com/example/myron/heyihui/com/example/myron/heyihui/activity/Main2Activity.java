@@ -1,7 +1,6 @@
 package com.example.myron.heyihui.com.example.myron.heyihui.activity;
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -10,12 +9,10 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
-import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.os.PowerManager;
-import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -24,18 +21,16 @@ import android.support.v4.content.FileProvider;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.common.design.MaterialDialog;
@@ -43,17 +38,16 @@ import com.example.myron.heyihui.R;
 import com.example.myron.heyihui.com.example.myron.heyihui.BaseApp;
 
 import com.example.myron.heyihui.com.example.myron.heyihui.Data.AppInfo;
+import com.example.myron.heyihui.com.example.myron.heyihui.Data.MallHome.MessageAll;
 import com.example.myron.heyihui.com.example.myron.heyihui.Http.HttpCore;
+import com.example.myron.heyihui.com.example.myron.heyihui.Http.HttpUtils;
 import com.example.myron.heyihui.com.example.myron.heyihui.activity.Mall.SearchActivity;
-import com.example.myron.heyihui.com.example.myron.heyihui.fragment.HomeFragment;
-import com.example.myron.heyihui.com.example.myron.heyihui.fragment.MyFragment;
-import com.example.myron.heyihui.com.example.myron.heyihui.fragment.NeedFragment;
-import com.example.myron.heyihui.com.example.myron.heyihui.fragment.ProductFragment2;
 import com.example.myron.heyihui.com.example.myron.heyihui.fragment.mall_v1.MallCartFragment;
 import com.example.myron.heyihui.com.example.myron.heyihui.fragment.mall_v1.MallHomeFragment;
-import com.example.myron.heyihui.com.example.myron.heyihui.utils.StatusBarUtils;
+import com.example.myron.heyihui.com.example.myron.heyihui.fragment.mall_v1.MessageFragment;
+import com.example.myron.heyihui.com.example.myron.heyihui.fragment.mall_v1.MineFragment;
+import com.example.myron.heyihui.com.example.myron.heyihui.view.BadgeRadioButton;
 import com.example.myron.heyihui.com.example.myron.heyihui.view.CommonProgressDialog;
-import com.example.myron.heyihui.com.example.myron.heyihui.utils.AndroidWorkaround;
 import com.example.myron.heyihui.com.example.myron.heyihui.utils.MyToast;
 import com.example.myron.heyihui.com.example.myron.heyihui.utils.common;
 import com.mph.okdroid.response.GsonResHandler;
@@ -73,8 +67,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 import static com.example.myron.heyihui.com.example.myron.heyihui.Http.HttpCore.API_TOKEN;
 import static com.example.myron.heyihui.com.example.myron.heyihui.Http.HttpCore.APPID;
@@ -85,13 +77,14 @@ public class Main2Activity extends BaseActivity implements RadioGroup.OnCheckedC
     private FragmentManager fragmentManager;
     //    FragmentTransaction transaction;  一个transaction只能commit一次，多次commit要重新建对象；
     private MallHomeFragment homeFragment;
-    private NeedFragment needFragment;
+    private MessageFragment msgFragment;
 //    private ProductFragment2 productFragment;
 private MallCartFragment cartFragment;
-    private MyFragment myFragment;
+    private MineFragment myFragment;
 
     private RadioGroup rbGroup;
-    private RadioButton rbHome, rbNeed, rbProduct, rbMy;
+    private BadgeRadioButton rbHome, rbProduct, rbMy;
+    private BadgeRadioButton rbNeed;
     private Fragment currentFragment;
     private boolean isExit = false;
     private long lastTime = 0;
@@ -106,14 +99,19 @@ private MallCartFragment cartFragment;
     public static String newVerName = "";
 
     //----
-    public DrawerLayout drawer;
+//    public DrawerLayout drawer;
     public Toolbar toolbar;
-    public ActionBarDrawerToggle toggle;
-    public NavigationView navigationView;
-    ImageView iv_nav;
+//    public ActionBarDrawerToggle toggle;
+//    public NavigationView navigationView;
+//    ImageView iv_nav;
     //搜索
     @BindView(R.id.iv_right)
     View search;
+    @BindView(R.id.tv_right)
+    TextView tv_right;
+
+    // 登录的一些action
+    private int clickId =0; // 用户登录前记录点击view 的id；
 
     public Main2Activity(){
         super(R.layout.activity_main22);
@@ -125,7 +123,19 @@ private MallCartFragment cartFragment;
         initHomeFragment();
         initFragment();
         checkPermission();
-        initDrawLayout();
+        initToolBar();
+//        initDrawLayout();
+    }
+
+    @Override
+    public void initData() {
+        super.initData();
+        getMessageDatas();
+    }
+
+    private void initToolBar() {
+        common.hideBackIv(this);
+        common.changeTitle(this,"合壹汇商城");
     }
 
     private void setUpdateInfo() {
@@ -135,46 +145,46 @@ private MallCartFragment cartFragment;
         apkName = appName + ".apk";
     }
 
-    private void initDrawLayout() {
-        iv_nav = (ImageView) findViewById(R.id.iv_back);
-        ViewGroup.LayoutParams params = iv_nav.getLayoutParams();
-        params.width = ViewGroup.LayoutParams.WRAP_CONTENT;
-        params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-        iv_nav.setLayoutParams(params);
-        iv_nav.setImageResource(R.mipmap.nav_icon);
-        iv_nav.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                drawer.openDrawer(GravityCompat.START);
-            }
-        });
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("");
-//        toolbar.setNavigationIcon(R.mipmap.nav_icon);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                drawer.openDrawer(GravityCompat.START);
-            }
-        });
-        setSupportActionBar(toolbar);
-        toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        toggle.setDrawerIndicatorEnabled(false);
-
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
-        ImageView iv  = (ImageView) navigationView.findViewById(R.id.user_icon);
-//        iv.setOnClickListener(new View.OnClickListener() {
+//    private void initDrawLayout() {
+//        iv_nav = (ImageView) findViewById(R.id.iv_back);
+//        ViewGroup.LayoutParams params = iv_nav.getLayoutParams();
+//        params.width = ViewGroup.LayoutParams.WRAP_CONTENT;
+//        params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+//        iv_nav.setLayoutParams(params);
+//        iv_nav.setImageResource(R.mipmap.nav_icon);
+//        iv_nav.setOnClickListener(new View.OnClickListener() {
 //            @Override
-//            public void onClick(View v) {
-//                common.launchActivity(Main2Activity.this,LoginActivity.class);
+//            public void onClick(View view) {
+//                drawer.openDrawer(GravityCompat.START);
 //            }
 //        });
-    }
+//        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+//        toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        toolbar.setTitle("");
+////        toolbar.setNavigationIcon(R.mipmap.nav_icon);
+//        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                drawer.openDrawer(GravityCompat.START);
+//            }
+//        });
+//        setSupportActionBar(toolbar);
+//        toggle = new ActionBarDrawerToggle(
+//                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+//        toggle.setDrawerIndicatorEnabled(false);
+//
+//        drawer.addDrawerListener(toggle);
+//        toggle.syncState();
+//
+//        navigationView = (NavigationView) findViewById(R.id.nav_view);
+//        ImageView iv  = (ImageView) navigationView.findViewById(R.id.user_icon);
+////        iv.setOnClickListener(new View.OnClickListener() {
+////            @Override
+////            public void onClick(View v) {
+////                common.launchActivity(Main2Activity.this,LoginActivity.class);
+////            }
+////        });
+//    }
 
     //获取读写权限
     public void checkPermission() {
@@ -209,12 +219,9 @@ private MallCartFragment cartFragment;
         getVersion(currentVerCode);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
     private void initHomeFragment() {
+        search.setVisibility(View.VISIBLE);
+        tabChangedUI("合壹汇商城", false);
         homeFragment = new MallHomeFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.fl_content, homeFragment);
@@ -224,9 +231,9 @@ private MallCartFragment cartFragment;
     private void initFragment() {
 
 //        homeFragment = new HomeFragment();
-        needFragment = new NeedFragment();
+        msgFragment = new MessageFragment();
         cartFragment = new MallCartFragment();
-        myFragment = new MyFragment();
+        myFragment = new MineFragment();
         currentFragment = homeFragment;
     }
 
@@ -235,10 +242,10 @@ private MallCartFragment cartFragment;
         //radio button
         rbGroup = (RadioGroup) findViewById(R.id.tab_menu);
         rbGroup.setOnCheckedChangeListener(this);
-        rbHome = (RadioButton) findViewById(R.id.tab_home);
-        rbNeed = (RadioButton) findViewById(R.id.tab_need);
-        rbProduct = (RadioButton) findViewById(R.id.tab_product);
-        rbMy = (RadioButton) findViewById(R.id.tab_my);
+        rbHome = (BadgeRadioButton) findViewById(R.id.tab_home);
+        rbNeed = (BadgeRadioButton) findViewById(R.id.tab_need);
+        rbProduct = (BadgeRadioButton) findViewById(R.id.tab_product);
+        rbMy = (BadgeRadioButton) findViewById(R.id.tab_my);
         //
         fl_content = (FrameLayout) findViewById(R.id.fl_content);
         //
@@ -248,7 +255,7 @@ private MallCartFragment cartFragment;
               common.launchActivity(Main2Activity.this, SearchActivity.class);
             }
         });
-
+        tv_right.setVisibility(View.GONE);
     }
 
     @Override
@@ -263,16 +270,17 @@ private MallCartFragment cartFragment;
                 switchFragment(homeFragment);
                 break;
             case R.id.tab_need:
-                handler.sendEmptyMessage(1);
-                switchFragment(needFragment);
+                interceptClick(i);
                 break;
             case R.id.tab_product:
-                handler.sendEmptyMessage(2);
-                switchFragment(cartFragment);
+                interceptClick(i);
+//                handler.sendEmptyMessage(2);
+//                switchFragment(cartFragment);
                 break;
             case R.id.tab_my:
-                handler.sendEmptyMessage(3);
-                switchFragment(myFragment);
+                interceptClick(i);
+//                handler.sendEmptyMessage(3);
+//                switchFragment(myFragment);
                 break;
         }
 
@@ -309,23 +317,28 @@ private MallCartFragment cartFragment;
             switch (msg.what) {
                 //首页
                 case 0:
-                    tabChangedUI("ALL IN ONE", true);
-                    search.setVisibility(View.VISIBLE);
+                    tabChangedUI("合壹汇商城", false);
+//                    search.setVisibility(View.VISIBLE);
+//                    tv_right.setVisibility(View.GONE);
+
                     break;
                 //需求
                 case 1:
                     tabChangedUI("消息", true);
                     search.setVisibility(View.GONE);
+                    tv_right.setVisibility(View.GONE);
                     break;
                 //产品
                 case 2:
                     tabChangedUI("购物车", true);
                     search.setVisibility(View.GONE);
+                    tv_right.setVisibility(View.VISIBLE);
                     break;
                 //我的
                 case 3:
                     tabChangedUI("我的", false);
                     search.setVisibility(View.GONE);
+                    tv_right.setVisibility(View.GONE);
                     break;
             }
         }
@@ -724,8 +737,112 @@ private MallCartFragment cartFragment;
         startActivity(intent);
     }
 
-//    public void toLogin(View view){
-//        common.launchActivity(this,LoginActivity.class);
-//   }
+    public void login(View view){
+        common.launchActivity(this,LoginActivity.class);
+   }
+//消息
+   public void changeMsgCount(final int count){
+        if(count>0){
+            new Handler(getMainLooper()).post(new Runnable() {
+                @Override
+                public void run() {
+                 rbNeed.setBadgeNumber(count);
+                }
+            });
+        }else{
+            new Handler(getMainLooper()).post(new Runnable() {
+                @Override
+                public void run() {
+              rbNeed.setBadgeNumber(-1);
+                }
+            });
+        }
+   }
+   //click
+   public void interceptClick(int viewid){
+       this.clickId = viewid;
+       if(HttpUtils.isIsLogin()){
+          if(viewid == R.id.tab_need){
+              switchFragment(msgFragment);
+              handler.sendEmptyMessage(1);
+          }else if(viewid == R.id.tab_product){
+              switchFragment(cartFragment);
+              handler.sendEmptyMessage(2);
+          }else if(viewid == R.id.tab_my){
+              switchFragment(myFragment);
+              handler.sendEmptyMessage(3);
+          }else{
+              switchFragment(homeFragment);
+              handler.sendEmptyMessage(0);
+          }
+       }else{
+           common.launchActivity(this,LoginActivity.class);
+       }
+
+   }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        Log.e("newIntent","Main2Activity in");
+        if(clickId>0){
+            ;
+            if(clickId == R.id.tab_need){
+                switchFragment(msgFragment);
+                handler.sendEmptyMessage(1);
+//                rbNeed.setChecked(false);
+//                rbNeed.toggle();
+//               rbNeed .setOnCheckedChangeListener(null);
+//                ((RadioButton)rbGroup.findViewById(R.id.listen_kind_group)).setChecked(true);
+            }else if(clickId == R.id.tab_product){
+                switchFragment(cartFragment);
+                handler.sendEmptyMessage(2);
+//                rbProduct .setOnCheckedChangeListener(null);
+//                rbProduct.setChecked(false);
+//                rbProduct.setChecked(true);
+//                rbProduct.toggle();
+            }else if(clickId == R.id.tab_my){
+                switchFragment(myFragment);
+                handler.sendEmptyMessage(3);
+//                rbMy .setOnCheckedChangeListener(null);
+//                rbMy.setChecked(false);
+//                rbMy.setChecked(true);
+//                rbMy.toggle();
+            }
+//            rbNeed.setOnCheckedChangeListener();
+//            rbGroup.setOnCheckedChangeListener(this);
+        }
+    }
+
+    public void getMessageDatas(){
+       HashMap map = new HashMap();
+        HttpUtils.getMessages(new GsonResHandler<MessageAll>() {
+            @Override
+            public void onSuccess(int i, MessageAll messageAll) {
+                if (i == 200) {
+                    if (messageAll != null && !loginTimeOut(messageAll.getStatus())) {
+                       changeMsgCount(getUnredMsgs(messageAll.getData())); //刷新 未读
+                    }
+                } else {
+                    MyToast.makeText(Main2Activity.this, "消息数据-请求失败" + i, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailed(int i, String s) {
+
+            }
+        }, map);
+    }
+
+    public int getUnredMsgs(List<MessageAll.Data> l) {
+        int count = 0;
+        for (MessageAll.Data msg : l) {
+            if (msg.getUnread() > 0) {
+                count += msg.getUnread();
+            }
+        }
+        return count;
+    }
 }
 

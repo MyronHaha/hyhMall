@@ -1,1 +1,1 @@
-include ':app', ':autosize'
+include ':app', ':autosize', ':pickerview', ':numpicker'

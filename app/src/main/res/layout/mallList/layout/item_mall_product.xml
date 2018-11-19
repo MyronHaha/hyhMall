@@ -10,13 +10,12 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_margin="12dp"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/shape_img_bg"
         android:layout_width="117dp"
         android:layout_height="88dp"
         >
 <ImageView
     android:id="@+id/iv"
-    android:src="@mipmap/main_icon_xiny"
     android:maxWidth="117dp"
     android:maxHeight="88dp"
     android:scaleType="centerCrop"
@@ -37,8 +36,6 @@
         android:layout_width="0dp"
         app:layout_constraintHorizontal_weight="1"
         android:layout_height="wrap_content"
-        android:text="FTS-6 Mobile超声多普勒胎儿fffffffffffff监护
-系统fsdfsdfffffffffffffffffffffffffffffffffffffffffffdsffdsfdfsdfdf"
       />
     <TextView
         style="@style/c55_13"
@@ -49,11 +46,11 @@
         android:id="@+id/tv_company"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="深圳市理邦精密仪器股份有限公司"
         android:singleLine="true"
         android:ellipsize="end"
         />
     <TextView
+        android:text="尖峰时刻劳动法讲述了快递费讲述了快递费建设路口打飞机了斯柯达"
         style="@style/et_hint"
         android:layout_marginLeft="12dp"
         android:layout_marginTop="10dp"
@@ -62,14 +59,16 @@
         android:id="@+id/tv_catagory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="外科 儿科"
         android:singleLine="true"
         android:ellipsize="end"
         />
 <TextView
+    android:layout_marginTop="6dp"
+    android:id="@+id/tv_price"
     android:textStyle="bold"
-    app:layout_constraintTop_toTopOf="@id/tv_catagory"
+    app:layout_constraintTop_toBottomOf="@id/tv_catagory"
     app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintBottom_toBottomOf="@id/iv_content"
     android:layout_marginRight="10dp"
     style="@style/red_15"
     android:text="价格登录可见"

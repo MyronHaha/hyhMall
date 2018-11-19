@@ -17,30 +17,21 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myron.heyihui.R;
 import com.example.myron.heyihui.com.example.myron.heyihui.Http.HttpCore;
 import com.example.myron.heyihui.com.example.myron.heyihui.Http.URL;
-import com.example.myron.heyihui.com.example.myron.heyihui.adapter.MyAdapter_msg;
 import com.example.myron.heyihui.com.example.myron.heyihui.utils.MyToast;
 import com.example.myron.heyihui.com.example.myron.heyihui.utils.common;
 import com.example.myron.heyihui.com.example.myron.heyihui.view.CustomDialog;
-import com.liaoinstan.springview.container.DefaultFooter;
-import com.liaoinstan.springview.container.DefaultHeader;
-import com.liaoinstan.springview.widget.SpringView;
 import com.mph.okdroid.response.JsonResHandler;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 

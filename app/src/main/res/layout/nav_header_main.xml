@@ -24,7 +24,7 @@
             android:layout_gravity="center"
             android:onClick="login"
             android:paddingTop="16dp"
-            app:srcCompat="@mipmap/nav_icon" />
+           android:src="@mipmap/nav_icon" />
 
         <TextView
             android:layout_width="wrap_content"

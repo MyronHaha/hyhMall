@@ -16,7 +16,7 @@ public class MyToast {
         private static Toast mToast;
         private MyToast(Context context, CharSequence text, int duration) {
             View v = LayoutInflater.from(context).inflate(R.layout.layout_toast, null);
-            v.getBackground().setAlpha(150);
+//            v.getBackground().setAlpha(150);
             TextView textView = (TextView) v.findViewById(R.id.textView1);
             textView.setText(text);
             mToast = new Toast(context);

@@ -26,6 +26,11 @@ import com.example.myron.heyihui.com.example.myron.heyihui.Data.productSerilize;
 import com.example.myron.heyihui.com.example.myron.heyihui.adapter.MainAdapter;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -49,7 +54,7 @@ public class common {
             @Override
             public void onClick(View view) {
                 ((Activity) context).finish();
-                ((Activity) context).overridePendingTransition(R.anim.out, R.anim.in);
+//                ((Activity) context).overridePendingTransition(R.anim.out, R.anim.in);
             }
         });
 
@@ -159,7 +164,7 @@ public class common {
     public static void createData(List list) {
         if (list.size() == 0) {
             //没数据刷新；
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 3; i++) {
                 list.add(i + "");
             }
         }
@@ -221,7 +226,7 @@ public class common {
     }
 
     //请求结果输出
-    public static void logResult(String str)throws Exception {
+    public static void logResult(String str) {
         Log.e("result", str);
     }
 
@@ -281,7 +286,10 @@ public class common {
     public static boolean SP_Clear(Context context){
         SharedPreferences sp = context.getSharedPreferences("UserInfo", MODE_PRIVATE);
         if(sp!=null){
-            sp.edit().clear().commit();
+            sp.edit().remove("name").commit();
+            sp.edit().remove("k").commit();
+            sp.edit().remove("phone").commit();
+            sp.edit().remove("p").commit();
             return true;
         }
         return false;
@@ -331,7 +339,130 @@ public class common {
         return BaseApp.getMyApplicationContext().getResources().getText(R.string.app_name).toString();
     }
 
+   public static String isStringNull(Object obj){
+        if(obj instanceof List ){
+            return obj.toString();
+        }else{
+            if(obj.equals("")){
+                return "暂无";
+            }
+        }
+        return obj.toString();
+   }
 
+   public static String save2point(Double d){
+      return String.format("%.2f",d);
+   }
+
+   public static String getUnitWithDD(Double d){
+       String result ="";
+       if(d>10000){
+           DecimalFormat df = new DecimalFormat("##############.##############");
+//         result = String.format("%f万元",d/10000);
+           result = df.format(d/10000);
+       }else{
+           result = String.format("%.2f元",d);
+       }
+       return result;
+   }
+
+    public static String[] transMoneyPlaform(Double dd){
+       Double d = Math.abs(dd);
+       if(d==0){
+           d = 0.00;
+       }
+        String[] result =new String[2];
+        DecimalFormat df = new DecimalFormat(",##0.00");
+        result[1] = "元";
+        result[0] = df.format(dd>=0?d:-d);
+//        if(d>=1000000){
+////            DecimalFormat df1 = new DecimalFormat(",###.##");
+//            result[1] = "百万元";
+//            result[0] = df.format(d/1000000);
+//        }else
+//
+            if(d>=10000){
+//            DecimalFormat df2 = new DecimalFormat(",###.##");
+            result[1] = "万元";
+            result[0] = df.format(dd>=0?d/10000:-d/10000);
+        }
+        return result;
+    }
+    public static String save2pointWithPrefix(Double d){
+        return String.format("￥%.2f",d);
+    }
+    public static String isNullData(Object object){
+        if(object == null){
+//            if(object instanceof Integer){
+//                return Integer.parseInt("0")+"";
+//            }else if(object instanceof  Double){
+//                return Double.parseDouble("0.00")+"";
+//            }else if(object instanceof  Float){
+//                return Float.parseFloat("0.0")+"";
+//            }else if(object instanceof  String){
+//                return "暂无";
+//            }
+            return "0.00";
+        }else{
+            if(object instanceof Integer){
+                return Integer.parseInt(object.toString())+"";
+            }else if(object instanceof  Double){
+                return save2point((Double) object);
+            }else if(object instanceof  Float){
+                return Float.parseFloat(object.toString())+"";
+            }else if(object instanceof  String){
+                if(((String)object).equals("")){
+                    return "暂无";
+                }
+                return object+"";
+            }
+        }
+        return object.toString();
+    }
+    /*年月日*/
+    public static String dataToStringSimple(Date date) {
+        DateFormat dateTimeformat = new SimpleDateFormat("yyyy-MM-dd");
+        String da = dateTimeformat.format(date);
+        return da;
+    }
+    public static String TimeDifference(Date startDate) {
+        long different = new Date().getTime() - startDate.getTime();
+        long secondsInMilli = 1000;
+
+        long minutesInMilli = secondsInMilli * 60;
+        long hoursInMilli = minutesInMilli * 60;
+        long daysInMilli = hoursInMilli * 24;
+        long weekInMilli = daysInMilli * 7;
+        long monthsMilli = daysInMilli * 30;
+        long yearsMilli = monthsMilli * 12;
+
+        long elapsedDays = different / daysInMilli;
+        long elapsedHours = different / hoursInMilli;
+        long elapsedMinutes = different / minutesInMilli;
+        long elapsedMonths = different / monthsMilli;
+        long elapsedWeeks = different / weekInMilli;
+        long elapsedYears = different / yearsMilli;
+//    different = different%monthsMilli;
+        if (elapsedYears > 0) {
+            return String.format("%d年前", elapsedYears);
+        } else if (elapsedMonths > 0) {
+            return String.format("%d个月前", elapsedMonths);
+        } else if (elapsedWeeks > 0) {
+            return String.format("%d周前", elapsedWeeks);
+        } else if (elapsedDays > 0) {
+            return String.format("%d天前", elapsedDays);
+        } else if (elapsedHours > 0) {
+            return String.format("%d小时前", elapsedHours);
+
+        }
+        if (elapsedMinutes > 0) {
+            return String.format("%d分钟前", elapsedMinutes);
+        } else {
+            return "刚刚";
+        }
+
+
+    }
 }
 
 

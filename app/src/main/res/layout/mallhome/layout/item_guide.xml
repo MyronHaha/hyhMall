@@ -1,32 +1,38 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="136dp"
+    android:layout_height="wrap_content"
     android:background="@color/white"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:paddingBottom="6dp">
-  <FrameLayout
-      android:layout_marginTop="26dp"
-      android:layout_gravity="center"
-      android:background="@drawable/bg_oval"
-      android:layout_width="64dp"
-      android:layout_height="64dp">
-    <com.example.myron.heyihui.com.example.myron.heyihui.view.CircleImageView
+  <!--<FrameLayout-->
+      <!--android:layout_marginTop="26dp"-->
+      <!--android:layout_gravity="center"-->
+      <!--android:background="@drawable/bg_oval"-->
+      <!--android:layout_width="64dp"-->
+      <!--android:layout_height="64dp">-->
+    <ImageView
+        android:layout_marginTop="13dp"
         android:layout_gravity="center"
         android:src="@mipmap/ic_launcher_round"
         android:id="@+id/iv"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
-  </FrameLayout>
+        android:layout_height="50dp"
+        android:maxHeight="50dp"
+        android:maxWidth="50dp"
+        android:adjustViewBounds="true"/>
+  <!--</FrameLayout>-->
 
     <TextView
+android:gravity="center"
         android:id="@+id/tv_title"
         style="@style/guide_item"
-        android:text="手术器械"
-        android:layout_marginTop="12dp"
-        android:layout_width="wrap_content"
+        android:text="手术器械dfsdfsdf"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:layout_marginTop="10dp"
+        android:layout_width="80dp"
         android:layout_height="wrap_content" />
 </LinearLayout>
 

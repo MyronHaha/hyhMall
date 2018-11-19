@@ -2,9 +2,13 @@
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_marginTop="10dp"
     android:id="@+id/tv_tag"
-    style="@style/c01_15"
+android:textColor="#242529"
+    android:text="ddddddddddddddddddddddddddddd"
+    android:textSize="12sp"
     android:layout_width="84dp"
     android:layout_height="40dp"
-    android:background="@drawable/tag_bg_1"
+    android:ellipsize="end"
+    android:paddingLeft="2dp"
+    android:paddingRight="2dp"
     android:gravity="center"
-    android:text="医械类" />
+    android:layout_gravity="center"/>

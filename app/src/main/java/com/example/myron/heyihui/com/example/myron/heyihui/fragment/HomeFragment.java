@@ -133,7 +133,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 //                            imgArray.add(URL.IMGPATH + imgUrl);
 //                        }
 //                    }
-//                    Banner.initNetBanner(getActivity(), R.id.banner_1, banner, imgArray);
+//                    ProductOrAd.initNetBanner(getActivity(), R.id.banner_1, banner, imgArray);
 //                }
 //            }
 //        });
@@ -173,9 +173,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         tv_ingSales = (TextView) getActivity().findViewById(R.id.tv_ingsales);
         tv_edu = (TextView) getActivity().findViewById(R.id.tv_edu);
 
-        tv_totalSales.setText(String.format("%,.2f", SplashActivity.totalSales));
-        tv_lastSales.setText(String.format("%,.2f", SplashActivity.lastSales));
-        tv_theSales.setText(String.format("%,.2f", SplashActivity.theSalse));
+//        tv_totalSales.setText(String.format("%,.2f", SplashActivity.totalSales));
+//        tv_lastSales.setText(String.format("%,.2f", SplashActivity.lastSales));
+//        tv_theSales.setText(String.format("%,.2f", SplashActivity.theSalse));
         //change progress view data
 
         Log.e("max",""+progressView.getMax());
@@ -185,11 +185,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         //change height
 
-        tv_orderTotal.setText(SplashActivity.orderNum + "");
-        tv_edNum.setText(SplashActivity.orderedNum + "");
-        tv_ingNum.setText(SplashActivity.orderingNum + "");
-        tv_edSales.setText(String.format("%,.2f", SplashActivity.edSales));
-        tv_ingSales.setText(String.format("%,.2f", SplashActivity.ingSales));
+//        tv_orderTotal.setText(SplashActivity.orderNum + "");
+//        tv_edNum.setText(SplashActivity.orderedNum + "");
+//        tv_ingNum.setText(SplashActivity.orderingNum + "");
+//        tv_edSales.setText(String.format("%,.2f", SplashActivity.edSales));
+//        tv_ingSales.setText(String.format("%,.2f", SplashActivity.ingSales));
 //        tv_edu.setText(Main2Activity.account.getData().getLimit()+"");
 
     }
@@ -209,48 +209,48 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
     public void changeRectangleHeight(final int i) {
-
-        final double d1 = SplashActivity.theSalse;
-        final double d2 = SplashActivity.lastSales;
-        final double ratio1 = d1 / (d1 + d2);
-        final double ratio2 = d2 / (d1 + d2);
-
-        if (i == 1) {
-            if (d2 == 0) {
-
-                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(76, 2);
-//                        params.width = 76;
-//                        params.height = 2;
-                iv_rec2.setLayoutParams(params);
-                iv_rec2.setBackgroundResource(R.drawable.rect2);
-
-            } else {
-                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(76, (int) (100 * ratio2));
-//                        params.width = 76;
-//                        params.height = (int) (100 * ratio2);
-                iv_rec2.setLayoutParams(params);
-                iv_rec2.setBackgroundResource(R.drawable.rect2);
-            }
-            iv_rec2.postInvalidate();
-        } else {
-            if (d1 == 0) {
-
-                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(76, 2);
-//                        params.width = 76;
-//                        params.height = 2;
-                iv_rec.setLayoutParams(params);
-                iv_rec.setBackgroundResource(R.drawable.rect);
-
-            } else {
-                Log.e("ratio", ratio1 + "");
-                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(76, (int) (100 * ratio1));
-//                        params.width = 76;
-//                        params.height = (int) (100 * ratio1);
-                iv_rec.setLayoutParams(params);
-                iv_rec.setBackgroundResource(R.drawable.rect);
-                iv_rec.postInvalidate();
-            }
-        }
+////
+////        final double d1 = SplashActivity.theSalse;
+////        final double d2 = SplashActivity.lastSales;
+//        final double ratio1 = d1 / (d1 + d2);
+//        final double ratio2 = d2 / (d1 + d2);
+//
+//        if (i == 1) {
+//            if (d2 == 0) {
+//
+//                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(76, 2);
+////                        params.width = 76;
+////                        params.height = 2;
+//                iv_rec2.setLayoutParams(params);
+//                iv_rec2.setBackgroundResource(R.drawable.rect2);
+//
+//            } else {
+//                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(76, (int) (100 * ratio2));
+////                        params.width = 76;
+////                        params.height = (int) (100 * ratio2);
+//                iv_rec2.setLayoutParams(params);
+//                iv_rec2.setBackgroundResource(R.drawable.rect2);
+//            }
+//            iv_rec2.postInvalidate();
+//        } else {
+//            if (d1 == 0) {
+//
+//                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(76, 2);
+////                        params.width = 76;
+////                        params.height = 2;
+//                iv_rec.setLayoutParams(params);
+//                iv_rec.setBackgroundResource(R.drawable.rect);
+//
+//            } else {
+//                Log.e("ratio", ratio1 + "");
+//                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(76, (int) (100 * ratio1));
+////                        params.width = 76;
+////                        params.height = (int) (100 * ratio1);
+//                iv_rec.setLayoutParams(params);
+//                iv_rec.setBackgroundResource(R.drawable.rect);
+//                iv_rec.postInvalidate();
+//            }
+//        }
     }
 
     public void getAccounts() {
@@ -327,11 +327,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                         max += j;
                     }
                     rv.postChangeData(new String[]{"A类产品", "代理投标", "配送", "CSO服务", "采集"}, data, max);
-                    SplashActivity.data_cso = data_cso;
-                    SplashActivity.data_A = data_A;
-                    SplashActivity.data_cj = data_cj;
-                    SplashActivity.data_dl = data_dl;
-                    SplashActivity.data_ps = data_ps;
+//                    SplashActivity.data_cso = data_cso;
+//                    SplashActivity.data_A = data_A;
+//                    SplashActivity.data_cj = data_cj;
+//                    SplashActivity.data_dl = data_dl;
+//                    SplashActivity.data_ps = data_ps;
                     if (orderNum > 0) {
                         int orderedNum = orderNum - orderingNum;
                         tv_edNum.setText(orderedNum + "");

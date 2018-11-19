@@ -19,10 +19,19 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
             <!--banner-->
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="210dp"
-                android:background="#c3c3c3" />
+            <!--<FrameLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="210dp"-->
+                <!--android:background="@color/white" >-->
+                <ImageView
+                    android:src="@mipmap/nopictures_bg"
+                    android:id="@+id/iv"
+                    android:scaleType="centerCrop"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:maxHeight="210dp"/>
+            <!--</FrameLayout>-->
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
@@ -36,7 +45,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
                     android:layout_marginTop="10dp"
-                    android:text="￥20.8-98.8"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -48,7 +56,6 @@
                     android:layout_marginLeft="13dp"
                     android:layout_marginTop="10dp"
                     android:lineSpacingMultiplier="1.2"
-                    android:text="钱璟一次性使用直线型切割吻合器和钉仓组件"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_price" />
                 <!--分享-->
@@ -79,7 +86,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="12dp"
                     android:layout_marginTop="10dp"
-                    android:text="外科 皮肤科"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_name" />
             </android.support.constraint.ConstraintLayout>
@@ -106,7 +112,6 @@
                     style="@style/black_13"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="盒"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -126,7 +131,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="14dp"
-                    android:text="Monosyn"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_danwei" />
 
@@ -146,7 +150,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="14dp"
-                    android:text="沪械注准20152650270"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_brand" />
 
@@ -166,7 +169,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="14dp"
-                    android:text="德国贝朗医疗有限公司"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_pzwh" />
 
@@ -186,7 +188,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="14dp"
-                    android:text="骨科材料"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_mt" />
             </android.support.constraint.ConstraintLayout>
@@ -204,12 +205,15 @@
                 android:padding="12dp">
 
                 <TextView
+                    style="@style/red_15"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
                     android:text="选择" />
 
                 <TextView
+                    android:id="@+id/hassel"
+                    style="@style/red_15"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
@@ -226,35 +230,40 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingBottom="14dp"
-                android:paddingLeft="12dp"
-                android:paddingRight="12dp"
-                android:paddingTop="14dp">
+                android:paddingTop="14dp"
+         >
 
                 <TextView
+                    android:paddingLeft="12dp"
+                    android:paddingRight="12dp"
                     style="@style/black_15"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="热门产品" />
 
                 <android.support.v7.widget.RecyclerView
+                    android:paddingRight="12dp"
                     android:id="@+id/hotProduct"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="180dp" />
             </LinearLayout>
+<ImageView
+    android:nestedScrollingEnabled="true"
+    android:focusable="false"
+    android:focusableInTouchMode="false"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:src="@mipmap/bg_xq"
+    android:maxHeight="50dp"
+    android:adjustViewBounds="true"
+    android:scaleType="fitXY"/>
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="30dp"-->
+                <!--android:background="#edecec">-->
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:background="#edecec">
-
-                <TextView
-                    style="@style/c7_15"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="详情" />
-            </LinearLayout>
+  <!---->
+            <!--</LinearLayout>-->
 
             <com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
                 android:id="@+id/subsampling_scale_image_view"
@@ -293,12 +302,12 @@
             android:background="#f2fcfd">
 
             <LinearLayout
-                android:id="@+id/left"
+                android:id="@+id/kefu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="43dp"
+                android:layout_marginLeft="36dp"
                 android:orientation="vertical"
                 android:paddingBottom="4dp"
                 android:paddingTop="4dp">
@@ -307,7 +316,7 @@
                     android:layout_width="17dp"
                     android:layout_height="17dp"
                     android:layout_gravity="center_horizontal"
-                    android:src="@mipmap/icon" />
+                    android:src="@mipmap/icon_kf" />
 
                 <TextView
                     style="@style/c7_13"
@@ -319,21 +328,23 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_favor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="29dp"
-                android:layout_toRightOf="@id/left"
+                android:layout_toRightOf="@id/kefu"
                 android:orientation="vertical"
                 android:paddingBottom="4dp"
                 android:paddingTop="4dp">
 
                 <ImageView
+                    android:id="@+id/favor"
                     android:layout_width="17dp"
                     android:layout_height="17dp"
                     android:layout_gravity="center_horizontal"
-                    android:src="@mipmap/icon" />
+                    android:src="@mipmap/icon_sc" />
 
                 <TextView
                     style="@style/c7_13"

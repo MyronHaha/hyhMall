@@ -10,6 +10,8 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/autosize" />
+            <option value="$PROJECT_DIR$/numpicker" />
+            <option value="$PROJECT_DIR$/pickerview" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

@@ -1,14 +1,15 @@
 apply plugin: 'com.android.application'
-
+//使用greendao
+//apply plugin: 'org.greenrobot.greendao'
 android {
-    compileSdkVersion 25
-    buildToolsVersion "26.0.2"
+    compileSdkVersion 26
+    buildToolsVersion "26.0.0"
     defaultConfig {
         applicationId "com.example.myron.heyihui"
         minSdkVersion 15
         targetSdkVersion 26
-        versionCode 3
-        versionName "1.0.2"
+        versionCode 5
+        versionName "1.0.4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
@@ -29,6 +30,8 @@ android {
                             'src/main/res/layout/mallDetail',
                             'src/main/res/layout/mallResult',
                             'src/main/res/layout/mallCart',
+                            'src/main/res/layout/mallMine',
+                            'src/main/res/layout/mallMsg',
                             'src/main/res/layout',
                             'src/main/res'
                     ]
@@ -40,8 +43,24 @@ android {
 //        javaMaxHeapSize "6g"//越大越好
 //        incremental true
 //    }
+    //greendao配置
+//    greendao {
+//        //版本号，升级时可配置
+//        schemaVersion 1
+//        targetGenDir 'src/main/java'
+//    }
 }
-
+//这段代码的意思是强制改变所有引用com.android.support 版本为25.3.0。
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        def requested = details.requested
+        if (requested.group == 'com.android.support') {
+            if (!requested.name.startsWith("multidex")) {
+                details.useVersion '25.3.1'
+            }
+        }
+    }
+}
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -61,11 +80,24 @@ dependencies {
     compile 'com.mph.okdroid:okdroid:1.0.0'
     compile 'com.squareup.okio:okio:1.11.0'
     compile 'com.jcodecraeer:xrecyclerview:1.3.2'
-    compile 'com.yanzhenjie:permission:1.0.7'  //权限库
+    compile 'com.yanzhenjie:permission:1.0.7'
+    //权限库
     compile 'com.android.design:MaterialDialog:1.0.2'
     //btk
     compile 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
     compile 'com.davemorrissey.labs:subsampling-scale-image-view:3.5.0'
+    //greendao依赖
+    //    compile 'org.greenrobot:greendao:3.2.0'
+    compile 'com.youth.banner:banner:1.4.10'
+    //最新版本
+    compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
+    compile 'com.github.PhilJay:MPAndroidChart:v3.0.1'
+    compile 'com.github.mcxtzhang:SwipeDelMenuLayout:V1.3.0'
+    compile project(':pickerview')
+    compile 'com.android.design:MaterialDialog:1.0.2'
+    compile 'com.android.support:cardview-v7:26.0.0'
+    compile 'com.github.Victory-Over:SuperWeb:v1.0.2'
+
 }

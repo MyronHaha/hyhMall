@@ -1,27 +1,54 @@
 package com.example.myron.heyihui.com.example.myron.heyihui.activity;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Rect;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.PersistableBundle;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.view.animation.FastOutLinearInInterpolator;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.common.design.MaterialDialog;
 import com.example.myron.heyihui.R;
 import com.example.myron.heyihui.com.example.myron.heyihui.BaseApp;
+import com.example.myron.heyihui.com.example.myron.heyihui.Data.User;
+import com.example.myron.heyihui.com.example.myron.heyihui.Http.HttpCore;
+import com.example.myron.heyihui.com.example.myron.heyihui.Http.HttpUtils;
+import com.example.myron.heyihui.com.example.myron.heyihui.Http.URL;
 import com.example.myron.heyihui.com.example.myron.heyihui.utils.AndroidWorkaround;
+import com.example.myron.heyihui.com.example.myron.heyihui.utils.MyToast;
 import com.example.myron.heyihui.com.example.myron.heyihui.utils.NavigationBarUtil;
 import com.example.myron.heyihui.com.example.myron.heyihui.utils.SoftKeyboardStateHelper;
 import com.example.myron.heyihui.com.example.myron.heyihui.utils.StatusBarUtils;
+import com.example.myron.heyihui.com.example.myron.heyihui.utils.common;
+import com.mph.okdroid.response.IResponseHandler;
+import com.mph.okdroid.response.JsonResHandler;
 import com.nineoldandroids.animation.ValueAnimator;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+
 import butterknife.ButterKnife;
+import okhttp3.Response;
 
 /**
  * Created by Jason on 2018/10/22.
@@ -36,32 +63,40 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(this.layout>0){
             setContentView(layout);
+        }
             ButterKnife.bind(this);
 
-            if(!isXiaomi()){
+//            if(!isXiaomi()){
 //                setStatusColor();
-            }
+//            }
 //        if (AndroidWorkaround.checkDeviceHasNavigationBar(this)) {
 //            AndroidWorkaround.assistActivity(findViewById(android.R.id.content));
 //        }
         if(NavigationBarUtil.hasNavigationBar(this)){
             NavigationBarUtil.initActivity(findViewById(android.R.id.content));
         }
-
+//
+        // 系统 6.0 以上 状态栏白底黑字的实现方法
+//        this.getWindow()
+//                .getDecorView()
+//                .setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+//        initStateBarUi(this,getResources().getColor(R.color.colorPrimary));
         BaseApp.getInstance().addActivity(this);
         initView();
         initData();
     }
-    public  void initView(){}
+    public  void initView(){
+    }
     public void initData(){}
     /*---------------------------------状态栏------------------------------------------------*/
     public void setStatusBackground(int bgRes) {
         setStatusBg(this,bgRes);
     }
-    public void setStatusColor(){
-        setStatusColor(this,R.color.colorPrimary);
-    }
+//    public void setStatusColor(){
+//        setStatusColor(this,android.R.color.white);
+//    }
 
     public static void setStatusBg(Activity activity,int bgRes) {
         StatusBarUtils.setTranslucentStatus(activity);
@@ -163,4 +198,184 @@ public class BaseActivity extends AppCompatActivity {
         });
         animator.start();
     }
+
+    public void AutoLogin() {
+        HashMap map2 = new HashMap();
+        String phone = common.SP_Read(this.getApplicationContext(), "phone");
+        String k = common.SP_Read(this.getApplicationContext(), "k");
+        Log.e("phone" + phone + "," + "k" + k, "");
+        map2.put("phone", phone);
+        map2.put("p", k);
+        try {
+            loginRequest(map2, new JsonResHandler() {
+                @Override
+                public void onFailed(int i, String s) {
+                }
+
+                @Override
+                public void onSuccess(int i, final JSONObject json) {
+                    //                HttpCore.userId = user.getData().getId();
+                    try {
+                        Log.e("result", json.toString());
+                        if (json != null && json.getInt("status") == 1) {
+                            try {
+                                JSONObject job = new JSONObject(json.getString("data").toString());
+                                HttpCore.userId = job.getInt("id");
+                                User.userName = job.getString("name");
+                                common.logResult(HttpCore.userId + "" + User.userName);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            HttpUtils.setLogin(true); // 登录状态
+                        } else {
+                            HttpUtils.setLogin(false);
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                      common.launchActivity(BaseActivity.this, LoginActivity.class);
+                                    try {
+                                        MyToast.makeText(BaseActivity.this, json.getString("message") + "请重新登录", 3000).show();
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }, 1000);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    //自动登录
+    public static void loginRequest(HashMap map, final IResponseHandler handler) throws Exception {
+        Log.e("login", URL.LOGIN + "--" + map.toString());
+        HttpCore.post(URL.LOGIN, map, new IResponseHandler() {
+            @Override
+            public void onSuccess(Response response) {
+                if (response.code() == 200) {
+                    Log.e("code", response.code() + "");
+                    String token = response.header("token");
+                    HttpCore.setToken(token);
+                    handler.onSuccess(response);
+                }
+
+            }
+
+            @Override
+            public void onFailed(int i, String s) {
+
+            }
+
+            @Override
+            public void onProgress(long l, long l1) {
+
+            }
+        });
+    }
+
+    public boolean  loginTimeOut(int status){
+        if(status == 403 ){
+            if (!common.SP_Read(this.getApplicationContext(), "phone").equals("")) {
+                AutoLogin();
+            }
+            return true;
+        }else{
+            return false;
+        }
+    }
+    public void dial(final String phone) {
+        // 检查是否获得了权限（Android6.0运行时权限）
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            // 没有获得授权，申请授权
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.CALL_PHONE)) {
+                // 返回值：
+//                          如果app之前请求过该权限,被用户拒绝, 这个方法就会返回true.
+//                          如果用户之前拒绝权限的时候勾选了对话框中”Don’t ask again”的选项,那么这个方法会返回false.
+//                          如果设备策略禁止应用拥有这条权限, 这个方法也返回false.
+                // 弹窗需要解释为何需要该权限，再次请求授权
+                MyToast.makeText(this, "请先设置应用权限", Toast.LENGTH_LONG).show();
+
+                // 帮跳转到该应用的设置界面，让用户手动授权
+                Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                Uri uri = Uri.fromParts("package", this.getPackageName(), null);
+                intent.setData(uri);
+                startActivity(intent);
+            } else {
+                // 不需要解释为何需要该权限，直接请求授权
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.CALL_PHONE},
+                        1);
+            }
+        } else {
+            // 已经获得授权，可以打电话
+//            PromptButton sure = new PromptButton("确定", new PromptButtonListener() {
+//                @Override
+//                public void onClick(PromptButton promptButton) {
+//                    CallPhone(phone);
+//                }
+//            });
+//            sure.setFocusBacColor(Color.parseColor("#3db0ff"));
+//            sure.setTextColor(Color.parseColor("#ff5959"));
+//            showUiDialog("确认拨号给" + "\n\r" + phone + "?",
+//                    sure);
+            showNormalDialog("确认拨号给 " + phone, new promptListener() {
+                @Override
+                public void cancel(MaterialDialog dialog) {
+                    dialog.dismiss();
+                }
+
+                @Override
+                public void prompt(MaterialDialog dialog) {
+                    CallPhone(phone);
+                    dialog.dismiss();
+                }
+            });
+        }
+
+    }
+
+    // 是否...
+    public void showNormalDialog(String alertMsg, final promptListener listener) {
+        View view = getLayoutInflater().inflate(R.layout.dialog_normal, null);
+        final MaterialDialog dialog = new MaterialDialog.Builder(this).create();
+        dialog.setContentView(view);
+        dialog.setCanceledOnTouchOutside(false);
+//        ((TextView)view.findViewById(R.id.tv_title)).setText(title);
+        ((TextView) view.findViewById(R.id.tv_alert)).setText(alertMsg);
+        view.findViewById(R.id.cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.cancel(dialog);
+            }
+        });
+        view.findViewById(R.id.prompt).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.prompt(dialog);
+            }
+        });
+        dialog.show();
+    }
+
+    private void CallPhone(String phone) {
+        String number = phone;
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_CALL);
+        Uri data = Uri.parse("tel:" + number);
+        intent.setData(data);
+        startActivity(intent);
+    }
+    public interface promptListener {
+        public void cancel(MaterialDialog dialog);
+
+        public void prompt(MaterialDialog dialog);
+    }
+
 }

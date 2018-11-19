@@ -7,13 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.myron.heyihui.R;
 import com.example.myron.heyihui.com.example.myron.heyihui.Data.Order_sr;
-import com.example.myron.heyihui.com.example.myron.heyihui.activity.Detail_msg;
 import com.example.myron.heyihui.com.example.myron.heyihui.activity.Detail_sr;
 import com.example.myron.heyihui.com.example.myron.heyihui.utils.common;
 

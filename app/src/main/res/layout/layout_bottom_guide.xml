@@ -3,6 +3,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="bottom"
+    android:clipChildren="false"
     android:background="@color/white"
     android:layout_gravity="bottom">
     <View
@@ -13,65 +14,100 @@
     <RadioGroup
         android:id="@+id/tab_menu"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:orientation="horizontal"
-        android:layout_gravity="bottom"
+        android:layout_gravity="center"
         android:gravity="bottom">
-        <RadioButton
+        <com.example.myron.heyihui.com.example.myron.heyihui.view.BadgeRadioButton
             android:id="@+id/tab_home"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
+            android:paddingTop="2dp"
+            android:drawablePadding="2dp"
             android:button="@null"
             android:checked="true"
             android:drawableTop="@drawable/selector_home"
-            android:gravity="center_horizontal|bottom"
+            android:gravity="center"
             android:textColor="@drawable/selector_tab_tx"
             android:text="首页" />
-        <RadioButton
+        <!--<RelativeLayout-->
+            <!--android:layout_gravity="center"-->
+            <!--android:layout_weight="1"-->
+            <!--android:paddingTop="5dp"-->
+            <!--android:paddingBottom="5dp"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent">-->
+            <!--<TextView-->
+                <!--android:layout_width="15dp"-->
+                <!--android:layout_height="15dp"-->
+                <!--android:id="@+id/count"-->
+                <!--android:text="11"-->
+                <!--style="@style/white_11"-->
+                <!--android:gravity="center"-->
+                <!--android:background="@drawable/bg_dot"-->
+                <!--android:layout_alignParentTop="true"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:layout_alignParentEnd="true"-->
+                <!--android:layout_marginRight="28dp"-->
+                <!--android:layout_marginTop="-8dp"-->
+            <!--/>-->
+        <!--<RadioButton-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:id="@+id/tab_need"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:button="@null"-->
+            <!--android:checked="false"-->
+            <!--android:drawableTop="@drawable/selector_need"-->
+            <!--android:gravity="center_horizontal|bottom"-->
+            <!--android:textColor="@drawable/selector_tab_tx"-->
+            <!--android:text="消息" />-->
+    <!--</RelativeLayout>-->
+        <com.example.myron.heyihui.com.example.myron.heyihui.view.BadgeRadioButton
             android:id="@+id/tab_need"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
+            android:paddingTop="2dp"
             android:button="@null"
             android:checked="false"
             android:drawableTop="@drawable/selector_need"
-            android:gravity="center_horizontal|bottom"
+            android:drawablePadding="2dp"
+            android:gravity="center"
             android:textColor="@drawable/selector_tab_tx"
             android:text="消息" />
-        <RadioButton
+        <com.example.myron.heyihui.com.example.myron.heyihui.view.BadgeRadioButton
             android:id="@+id/tab_product"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
+            android:paddingTop="2dp"
+            android:drawablePadding="2dp"
+
             android:button="@null"
             android:checked="false"
+
             android:drawableTop="@drawable/selector_product"
-            android:gravity="center_horizontal|bottom"
+            android:gravity="center"
             android:textColor="@drawable/selector_tab_tx"
             android:text="购物车" />
 
-        <RadioButton
+        <com.example.myron.heyihui.com.example.myron.heyihui.view.BadgeRadioButton
             android:id="@+id/tab_my"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
+            android:paddingTop="2dp"
+            android:drawablePadding="2dp"
             android:button="@null"
             android:checked="false"
             android:drawableTop="@drawable/selector_my"
-            android:gravity="center_horizontal|bottom"
+            android:gravity="center"
             android:textColor="@drawable/selector_tab_tx"
             android:text="我的" />
 

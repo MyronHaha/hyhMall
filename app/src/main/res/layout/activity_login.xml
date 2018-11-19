@@ -5,34 +5,41 @@
     android:gravity="center_horizontal"
     android:orientation="vertical"
     tools:context="com.example.myron.heyihui.com.example.myron.heyihui.activity.LoginActivity">
-  <LinearLayout
-android:paddingTop="5dp"
-      android:layout_width="match_parent"
-      android:layout_height="141dp"
+  <RelativeLayout
       android:background="@color/colorPrimary"
-      android:gravity="center|top"
-      android:orientation="vertical">
+      android:layout_width="match_parent"
+      android:layout_height="50dp"
+      android:orientation="horizontal">
     <ImageView
-
+        android:padding="10dp"
+        android:layout_marginLeft="6dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
         android:id="@+id/iv_back"
-        android:paddingLeft="6dp"
-        android:paddingBottom="3dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="top|left"
         android:src="@mipmap/icon_back_w"/>
+    <TextView
+        android:layout_centerInParent="true"
+        style="@style/white_18"
+        android:text="登录"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+  </RelativeLayout>
+<LinearLayout
+    android:layout_gravity="center"
+    android:layout_width="wrap_content"
+    android:layout_height="180dp">
     <ImageView
+        android:layout_gravity="center"
+        android:src="@mipmap/big_logo"
         android:layout_width="80dp"
-        android:layout_height="100dp"
-        android:src="@mipmap/icon_allinone_w"
-        android:layout_gravity="center" />
-  </LinearLayout>
-
+        android:layout_height="104dp" />
+</LinearLayout>
    <LinearLayout
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
-       android:orientation="vertical"
-       android:paddingTop="52dp">
+       android:orientation="vertical">
 
        <LinearLayout
          android:gravity="center_horizontal"
@@ -49,11 +56,14 @@ android:paddingTop="5dp"
            android:gravity="center"
            android:layout_gravity="center"/>
        <EditText
+           android:maxLines="1"
+           android:singleLine="true"
+           android:imeOptions="actionNext"
            android:id="@+id/et_phoneNum"
            android:layout_width="205dp"
            android:layout_height="40dp"
            android:hint="手机号"
-           android:text=""
+           android:inputType="phone|number"
            style="@style/MyEditText"
            android:gravity="top|left"/>
      </LinearLayout>
@@ -72,6 +82,10 @@ android:paddingTop="5dp"
                android:gravity="center"
                android:layout_gravity="center"/>
            <EditText
+               android:inputType="number"
+               android:imeOptions="actionDone"
+               android:singleLine="true"
+               android:maxEms="8"
                android:id="@+id/et_code"
                android:layout_width="112dp"
                android:layout_height="40dp"
